@@ -21,6 +21,14 @@ func (dll doubleLinkedList) AddValue(value int) {
 	}
 }
 
+func (dll doubleLinkedList) invert() {
+	if dll.firstnode == nil {
+
+	} else {
+
+	}
+}
+
 type dllNode struct {
 	value int
 	next  *dllNode
@@ -29,4 +37,8 @@ type dllNode struct {
 
 func (node dllNode) addNext(value int) {
 	node.next = &dllNode{value: value, next: nil, prev: nil}
+}
+
+func (node dllNode) invert() {
+
 }
