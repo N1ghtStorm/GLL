@@ -1,31 +1,49 @@
 package main
 
 func main() {
-	var dLL = newDoubleLinkedList(1)
-	println(dLL.firstnode.value)
+	var dLL = newDoubleLinkedList(17)
+	dLL.AddValue(2)
+	dLL.AddValue(3)
+	dLL.AddValue(4)
+	dLL.AddValue(5)
+	dLL.AddValue(6)
+	dLL.AddValue(7)
+	dLL.AddValue(8)
+	dLL.PrintValues()
+	println("")
+	println("================")
+	println("================")
+	println(dLL.Count)
+	//println(dLL)
 }
 
 type doubleLinkedList struct {
 	firstnode *dllNode
+	Count     int
 }
 
 func newDoubleLinkedList(value int) doubleLinkedList {
-	return doubleLinkedList{firstnode: &dllNode{value: value, next: nil, prev: nil}}
+	return doubleLinkedList{firstnode: &dllNode{value: value, next: nil, prev: nil}, Count: 1}
+}
+
+func (dll doubleLinkedList) PrintValues() {
+	dll.firstnode.printNode()
 }
 
 func (dll doubleLinkedList) AddValue(value int) {
 	if dll.firstnode != nil {
+		dll.Count = dll.Count + 1
 		dll.firstnode.addNext(value)
 	} else {
+		dll.Count = 1
 		dll.firstnode = &dllNode{value: value, next: nil, prev: nil}
 	}
 }
 
 func (dll doubleLinkedList) invert() {
-	if dll.firstnode == nil {
-
+	if dll.firstnode != nil && dll.firstnode.next != nil {
+		dll.firstnode.invert()
 	} else {
-
 	}
 }
 
@@ -36,9 +54,24 @@ type dllNode struct {
 }
 
 func (node dllNode) addNext(value int) {
-	node.next = &dllNode{value: value, next: nil, prev: nil}
+	if node.next == nil {
+		node.next = new(dllNode)
+		node.next.value = value
+	} else {
+		node.next.addNext(value)
+	}
+}
+
+func (node dllNode) printNode() {
+	print(node.value)
+	if node.next != nil {
+		print("->")
+		node.next.printNode()
+	}
 }
 
 func (node dllNode) invert() {
-
+	if node.next != nil {
+		node.next, node.prev = node.prev, node.next
+	}
 }
