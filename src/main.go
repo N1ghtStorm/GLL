@@ -59,8 +59,6 @@ type dllNode struct {
 
 func (node *dllNode) addNext(value int) {
 	if node.next == nil {
-		// node.next = {new(dllNode)}
-		// node.next.value = value
 		node.next = &dllNode{value: value, next: nil, prev: node}
 	} else {
 		node.next.addNext(value)
@@ -77,6 +75,6 @@ func (node *dllNode) printNode() {
 
 func (node *dllNode) invert() {
 	if node.next != nil {
-		node.next, node.prev = node.prev, node.next
+		//node.next, node.prev = node.prev, node.next
 	}
 }
