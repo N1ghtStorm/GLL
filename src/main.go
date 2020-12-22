@@ -9,12 +9,12 @@ func main() {
 	dLL.AddValue(6)
 	dLL.AddValue(7)
 	dLL.AddValue(8)
+
 	dLL.PrintValues()
 	println("")
 	println("================")
 	println("================")
 	println(dLL.Count)
-	//println(dLL)
 }
 
 type doubleLinkedList struct {
@@ -26,11 +26,11 @@ func newDoubleLinkedList(value int) doubleLinkedList {
 	return doubleLinkedList{firstnode: &dllNode{value: value, next: nil, prev: nil}, Count: 1}
 }
 
-func (dll doubleLinkedList) PrintValues() {
+func (dll *doubleLinkedList) PrintValues() {
 	dll.firstnode.printNode()
 }
 
-func (dll doubleLinkedList) AddValue(value int) {
+func (dll *doubleLinkedList) AddValue(value int) {
 	if dll.firstnode != nil {
 		dll.Count = dll.Count + 1
 		dll.firstnode.addNext(value)
@@ -40,7 +40,7 @@ func (dll doubleLinkedList) AddValue(value int) {
 	}
 }
 
-func (dll doubleLinkedList) invert() {
+func (dll *doubleLinkedList) invert() {
 	if dll.firstnode != nil && dll.firstnode.next != nil {
 		dll.firstnode.invert()
 	} else {
@@ -53,7 +53,7 @@ type dllNode struct {
 	prev  *dllNode
 }
 
-func (node dllNode) addNext(value int) {
+func (node *dllNode) addNext(value int) {
 	if node.next == nil {
 		node.next = new(dllNode)
 		node.next.value = value
@@ -62,7 +62,7 @@ func (node dllNode) addNext(value int) {
 	}
 }
 
-func (node dllNode) printNode() {
+func (node *dllNode) printNode() {
 	print(node.value)
 	if node.next != nil {
 		print("->")
@@ -70,7 +70,7 @@ func (node dllNode) printNode() {
 	}
 }
 
-func (node dllNode) invert() {
+func (node *dllNode) invert() {
 	if node.next != nil {
 		node.next, node.prev = node.prev, node.next
 	}
