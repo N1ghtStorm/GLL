@@ -15,6 +15,10 @@ func main() {
 	println("================")
 	println("================")
 	println(dLL.Count)
+	println("================")
+	println("================")
+	dLL.invert()
+	dLL.PrintValues()
 }
 
 type doubleLinkedList struct {
@@ -55,8 +59,9 @@ type dllNode struct {
 
 func (node *dllNode) addNext(value int) {
 	if node.next == nil {
-		node.next = new(dllNode)
-		node.next.value = value
+		// node.next = {new(dllNode)}
+		// node.next.value = value
+		node.next = &dllNode{value: value, next: nil, prev: node}
 	} else {
 		node.next.addNext(value)
 	}
