@@ -70,11 +70,14 @@ func (node *dllNode) printNode() {
 	if node.next != nil {
 		print("->")
 		node.next.printNode()
+	} else {
+		print("->nil")
 	}
 }
 
 func (node *dllNode) invert() {
 	if node.next != nil {
-		//node.next, node.prev = node.prev, node.next
+		node.next.next, node.next.prev = node.next.prev, node.next.next
+		node.next.invert()
 	}
 }
