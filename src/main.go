@@ -46,7 +46,7 @@ func (dll *doubleLinkedList) AddValue(value int) {
 
 func (dll *doubleLinkedList) invert() {
 	if dll.firstnode != nil && dll.firstnode.next != nil {
-		dll.firstnode.invert()
+		dll.firstnode.invert(dll)
 	} else {
 	}
 }
@@ -75,9 +75,12 @@ func (node *dllNode) printNode() {
 	}
 }
 
-func (node *dllNode) invert() {
+func (node *dllNode) invert(dll *doubleLinkedList) {
 	if node.next != nil {
-		node.next.next, node.next.prev = node.next.prev, node.next.next
-		node.next.invert()
+		node.next, node.prev = node.prev, node.next
+		node.prev.invert(dll)
+	} else {
+		node.next = node.prev
+		dll.firstnode = node
 	}
 }
