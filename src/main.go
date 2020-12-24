@@ -12,11 +12,7 @@ func main() {
 
 	dLL.PrintValues()
 	println("")
-	println("================")
-	println("================")
 	println(dLL.Count)
-	println("================")
-	println("================")
 	dLL.invert()
 	dLL.PrintValues()
 }
@@ -82,5 +78,6 @@ func (node *dllNode) invert(dll *doubleLinkedList) {
 	} else {
 		node.next = node.prev
 		dll.firstnode = node
+		println("")
 	}
 }
