@@ -3,16 +3,18 @@ package main
 func main() {
 	var dLL = newDoubleLinkedList(17)
 	dLL.AddValue(2)
-	dLL.AddValue(3)
-	dLL.AddValue(4)
-	dLL.AddValue(5)
+	dLL.AddValue(33)
+	dLL.AddValue(14)
+	dLL.AddValue(58)
 	dLL.AddValue(6)
-	dLL.AddValue(7)
+	dLL.AddValue(27)
 	dLL.AddValue(8)
+	dLL.AddValue(88)
 
 	dLL.PrintValues()
 	println("")
 	println(dLL.Count)
+	println(dLL.count())
 	dLL.invert()
 	dLL.PrintValues()
 }
@@ -47,6 +49,15 @@ func (dll *doubleLinkedList) invert() {
 	}
 }
 
+func (dll *doubleLinkedList) count() int {
+	var count = 0
+	if dll.firstnode != nil {
+		count = 1
+		dll.firstnode.iterCount(&count)
+	}
+	return count
+}
+
 type dllNode struct {
 	value int
 	next  *dllNode
@@ -79,5 +90,12 @@ func (node *dllNode) invert(dll *doubleLinkedList) {
 		node.next = node.prev
 		dll.firstnode = node
 		println("")
+	}
+}
+
+func (node *dllNode) iterCount(count *int) {
+	if node.next != nil {
+		*count++
+		node.next.iterCount(count)
 	}
 }
