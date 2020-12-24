@@ -58,6 +58,17 @@ func (dll *doubleLinkedList) count() int {
 	return count
 }
 
+func (dll *doubleLinkedList) Sort() {
+	// var count = dll.count()
+
+}
+
+// func (dll *doubleLinkedList) Divide() (doubleLinkedList, doubleLinkedList) {
+// 	//var count = dll.count()
+// 	//var firstList = doubleLinkedList{firstnode: dll.firstnode}
+// 	return error
+// }
+
 type dllNode struct {
 	value int
 	next  *dllNode
