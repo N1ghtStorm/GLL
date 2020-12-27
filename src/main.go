@@ -84,11 +84,13 @@ func (dll *doubleLinkedList) Sort() {
 	// var count = dll.count()
 }
 
-// func (dll *doubleLinkedList) Divide() (doubleLinkedList, doubleLinkedList) {
-// 	//var count = dll.count()
-// 	//var firstList = doubleLinkedList{firstnode: dll.firstnode}
-// 	return error
-// }
+func (dll *doubleLinkedList) Divide() (doubleLinkedList, doubleLinkedList) {
+	panic("UNIPLEMENTED")
+}
+
+//============================================================================================================
+//============================================================================================================
+//============================================================================================================
 
 type dllNode struct {
 	value int
