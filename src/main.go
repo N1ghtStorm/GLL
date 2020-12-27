@@ -17,8 +17,10 @@ func main() {
 	println(dLL.count())
 	dLL.invert()
 	dLL.PrintValues()
+	print("")
 	println("=======================")
 	println(dLL.getValueByIndex(2))
+	println(dLL.getNodeByIndex(0).value)
 }
 
 type doubleLinkedList struct {
@@ -34,6 +36,15 @@ func (dll *doubleLinkedList) getValueByIndex(index int) int {
 	if dll.firstnode != nil {
 		var current = 0
 		return dll.firstnode.getValueByIndex(&index, &current)
+	}
+
+	panic("list is empty")
+}
+
+func (dll *doubleLinkedList) getNodeByIndex(index int) *dllNode {
+	if dll.firstnode != nil {
+		var current = 0
+		return dll.firstnode.getNodeByIndex(&index, &current)
 	}
 
 	panic("list is empty")
@@ -93,6 +104,19 @@ func (node *dllNode) getValueByIndex(index *int, current *int) int {
 	if node.next != nil {
 		*current++
 		return node.next.getValueByIndex(index, current)
+	}
+
+	panic("index is out of boundaries of list")
+}
+
+func (node *dllNode) getNodeByIndex(index *int, current *int) *dllNode {
+	if *index == *current {
+		return node
+	}
+
+	if node.next != nil {
+		*current++
+		return node.next.getNodeByIndex(index, current)
 	}
 
 	panic("index is out of boundaries of list")
