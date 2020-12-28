@@ -94,13 +94,27 @@ func (dll *doubleLinkedList) Sort() {
 
 func (dll *doubleLinkedList) Divide() (*doubleLinkedList, *doubleLinkedList) {
 	var firstLinkedList = dll
-	var aaa = dll.count() / 2
-	var secondLinkedListFirstNode = dll.getNodeByIndex(aaa)
+	var halfCount = dll.count() / 2
+	var secondLinkedListFirstNode = dll.getNodeByIndex(halfCount)
 	secondLinkedListFirstNode.prev.next = nil
 	secondLinkedListFirstNode.prev = nil
 	var secondLinkedList = doubleLinkedList{firstnode: secondLinkedListFirstNode, Count: 0}
-	//panic("unimplemented")
 	return firstLinkedList, &secondLinkedList
+}
+
+func (dll *doubleLinkedList) Merge(dll2 *doubleLinkedList) *doubleLinkedList {
+	var dllLast = dll.takeLast()
+	dllLast.next = dll2.firstnode
+	dll2.firstnode.prev = dllLast
+	return dll
+}
+
+func (dll *doubleLinkedList) takeLast() *dllNode {
+	if dll.firstnode == nil {
+		panic("cant take last element - list is empty")
+	}
+
+	return dll.firstnode.takeLast()
 }
 
 //============================================================================================================
@@ -173,4 +187,12 @@ func (node *dllNode) iterCount(count *int) {
 		*count++
 		node.next.iterCount(count)
 	}
+}
+
+func (node *dllNode) takeLast() *dllNode {
+	if node.next == nil {
+		return node
+	}
+
+	return node.next.takeLast()
 }
