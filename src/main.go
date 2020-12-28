@@ -89,7 +89,16 @@ func (dll *doubleLinkedList) count() int {
 }
 
 func (dll *doubleLinkedList) Sort() {
-	// var count = dll.count()
+	//first, second = dll.Divide()
+	panic("unimplemented")
+}
+
+func (dll *doubleLinkedList) SortDivide() (*doubleLinkedList, *doubleLinkedList) {
+	if dll.count() > 1 {
+		return dll.Divide()
+	}
+
+	return dll, nil
 }
 
 func (dll *doubleLinkedList) Divide() (*doubleLinkedList, *doubleLinkedList) {
@@ -103,9 +112,12 @@ func (dll *doubleLinkedList) Divide() (*doubleLinkedList, *doubleLinkedList) {
 }
 
 func (dll *doubleLinkedList) Merge(dll2 *doubleLinkedList) *doubleLinkedList {
-	var dllLast = dll.takeLast()
-	dllLast.next = dll2.firstnode
-	dll2.firstnode.prev = dllLast
+	if dll2 != nil {
+		var dllLast = dll.takeLast()
+		dllLast.next = dll2.firstnode
+		dll2.firstnode.prev = dllLast
+	}
+
 	return dll
 }
 
