@@ -21,6 +21,14 @@ func main() {
 	println("=======================")
 	println(dLL.getValueByIndex(2))
 	println(dLL.getNodeByIndex(0).value)
+	println("=======================")
+	_, dLL2 := dLL.Divide()
+	dLL.PrintValues()
+	println("")
+	dLL2.PrintValues()
+	// var dLL2 = newDoubleLinkedList(17)
+	// println(dLL2.getNodeByIndex(3).value)
+
 }
 
 type doubleLinkedList struct {
@@ -84,8 +92,15 @@ func (dll *doubleLinkedList) Sort() {
 	// var count = dll.count()
 }
 
-func (dll *doubleLinkedList) Divide() (doubleLinkedList, doubleLinkedList) {
-	panic("UNIPLEMENTED")
+func (dll *doubleLinkedList) Divide() (*doubleLinkedList, *doubleLinkedList) {
+	var firstLinkedList = dll
+	var aaa = dll.count() / 2
+	var secondLinkedListFirstNode = dll.getNodeByIndex(aaa)
+	secondLinkedListFirstNode.prev.next = nil
+	secondLinkedListFirstNode.prev = nil
+	var secondLinkedList = doubleLinkedList{firstnode: secondLinkedListFirstNode, Count: 0}
+	//panic("unimplemented")
+	return firstLinkedList, &secondLinkedList
 }
 
 //============================================================================================================
