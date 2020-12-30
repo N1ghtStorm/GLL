@@ -40,6 +40,12 @@ func newDoubleLinkedList(value int) doubleLinkedList {
 	return doubleLinkedList{firstnode: &dllNode{value: value, next: nil, prev: nil}, Count: 1}
 }
 
+func (dll *doubleLinkedList) createCycleAtBack(cycleTargetNodeIndex int) {
+	var last = dll.firstnode.takeLast()
+	var targetNodePtr = dll.getNodeByIndex(cycleTargetNodeIndex)
+	targetNodePtr.next = last
+}
+
 func (dll *doubleLinkedList) getValueByIndex(index int) int {
 	if dll.firstnode != nil {
 		var current = 0
