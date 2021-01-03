@@ -26,6 +26,8 @@ func main() {
 	dLL.PrintValues()
 	println("")
 	dLL2.PrintValues()
+	dLL2.Sort()
+	dLL2.PrintValues()
 	// var dLL2 = newDoubleLinkedList(17)
 	// println(dLL2.getNodeByIndex(3).value)
 
@@ -95,11 +97,47 @@ func (dll *doubleLinkedList) count() int {
 }
 
 func (dll *doubleLinkedList) Sort() {
-	//first, second = dll.Divide()
+	// 	if A is None or A.next is None:
+	// 	return A
+	// leftHalf, rightHalf = splitTheList(A)
+	// left = mergeSortLinkedList(leftHalf)
+	// right = mergeSortLinkedList(rightHalf)
+	// return mergeTheLists(left, right)
+	if dll.firstnode == nil || dll.firstnode.next == nil {
+		return
+	}
+
+	var leftHalf, rightHalf = dll.Divide()
+
+	leftHalf.Sort()
+	rightHalf.Sort()
+}
+
+func MergeSorted(dll1 *doubleLinkedList, dll2 *doubleLinkedList) *doubleLinkedList {
+
+	// 	if list1.data < list2.data:
+	// 	temp = list1
+	// 	temp.next = self.mergeSorted(list1.next, list2)
+	//   else:
+	// 	temp = list2
+	// 	temp.next = self.mergeSorted(list1, list2.next)
+	//   return temp
+	if dll2 == nil {
+		return dll1
+	}
+
+	if dll1 == nil {
+		return dll2
+	}
+
+	//var temp *doubleLinkedList
+
+	//if dll1.
+
 	panic("unimplemented")
 }
 
-func (dll *doubleLinkedList) SortDivide() (*doubleLinkedList, *doubleLinkedList) {
+func (dll *doubleLinkedList) OutPutDivide() (*doubleLinkedList, *doubleLinkedList) {
 	if dll.count() > 1 {
 		return dll.Divide()
 	}
