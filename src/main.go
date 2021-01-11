@@ -14,6 +14,7 @@ func main() {
 	dLL.PrintValues()
 	dLL.Sort()
 	//dLL.PrintValues()
+	//dLL.PrintValues()
 	// println("")
 	// println(dLL.Count)
 	// println(dLL.count())
@@ -179,17 +180,24 @@ func (left *doubleLinkedList) Merge(right *doubleLinkedList) *doubleLinkedList {
 				left.removeFirstNode()
 			}
 		} else if leftCount > 0 {
-			return left
+			newList.Add(left.firstnode)
+			left.removeFirstNode()
 		} else if rightCount > 0 {
-			return right
+			newList.Add(right.firstnode)
+			right.removeFirstNode()
 		}
 	}
-	return left
+	return &newList
 }
 
 func (dll *doubleLinkedList) removeFirstNode() {
-	dll.firstnode = dll.firstnode.next
-	dll.firstnode.prev = nil
+	if dll.firstnode.next != nil {
+		dll.firstnode = dll.firstnode.next
+		dll.firstnode.prev = nil
+	} else {
+		dll.firstnode = nil
+	}
+
 }
 
 func (dll *doubleLinkedList) Add(node *dllNode) {
