@@ -111,6 +111,7 @@ func (dll *doubleLinkedList) Sort() {
 
 	leftHalf.Sort()
 	rightHalf.Sort()
+	leftHalf.Merge(rightHalf)
 }
 
 func MergeSorted(dll1 *doubleLinkedList, dll2 *doubleLinkedList) *doubleLinkedList {
@@ -155,14 +156,38 @@ func (dll *doubleLinkedList) Divide() (*doubleLinkedList, *doubleLinkedList) {
 	return firstLinkedList, &secondLinkedList
 }
 
-func (dll *doubleLinkedList) Merge(dll2 *doubleLinkedList) *doubleLinkedList {
-	if dll2 != nil {
-		var dllLast = dll.takeLast()
-		dllLast.next = dll2.firstnode
-		dll2.firstnode.prev = dllLast
-	}
+func (left *doubleLinkedList) Merge(right *doubleLinkedList) *doubleLinkedList {
+	// if dll2 != nil {
+	// 	var dllLast = dll.takeLast()
+	// 	dllLast.next = dll2.firstnode
+	// 	dll2.firstnode.prev = dllLast
+	// }
+	var leftCount = left.count()
+	var rightCount = right.count()
 
-	return dll
+	for leftCount > 0 || rightCount > 0 {
+		if leftCount > 0 && rightCount > 0 {
+			if left.firstnode.value > right.firstnode.value {
+
+			} else {
+
+			}
+		} else if leftCount > 0 {
+
+		} else if rightCount > 0 {
+
+		}
+	}
+	return left
+}
+
+// Replases first node from left to right
+func (left *doubleLinkedList) replaceFirstNode(right *doubleLinkedList) {
+	var replacedNode = left.firstnode
+	replacedNode.next = right.firstnode
+	left.firstnode = left.firstnode.next
+	left.firstnode.prev = nil
+	right.firstnode = replacedNode
 }
 
 func (dll *doubleLinkedList) takeLast() *dllNode {
