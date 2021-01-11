@@ -118,33 +118,33 @@ func (dll *doubleLinkedList) count() int {
 	return count
 }
 
-func (dll *doubleLinkedList) Sort() *doubleLinkedList {
-	if dll.count() <= 1 {
-		return dll
+func (unsorted *doubleLinkedList) Sort() *doubleLinkedList {
+	if unsorted.count() <= 1 {
+		return unsorted
 	}
 
-	var leftHalf, rightHalf = dll.Divide()
+	var leftHalf, rightHalf = unsorted.Divide()
 
 	var left = leftHalf.Sort()
 	var right = rightHalf.Sort()
-	var mergedList *doubleLinkedList
+	//var mergedList *doubleLinkedList
 
-	if left.count() > 0 && right.count() > 0 {
-		mergedList = left.Merge(right)
-	} else if left.count() > 0 {
-		return left
-	} else if right.count() > 0 {
-		return right
-	}
-
+	// if left.count() > 0 && right.count() > 0 {
+	// 	mergedList = left.Merge(right)
+	// } else if left.count() > 0 {
+	// 	return left
+	// } else if right.count() > 0 {
+	// 	return right
+	// }
+	return Merge(left, right)
 	//mergedList.PrintValues()
-	return mergedList
+	//return mergedList
 }
 
 func (dll *doubleLinkedList) Divide() (*doubleLinkedList, *doubleLinkedList) {
-	if dll.count() < 2 {
-		return dll, nil
-	}
+	// if dll.count() < 2 {
+	// 	return dll, nil
+	// }
 
 	var firstLinkedList = dll
 	var halfCount = dll.count() / 2
@@ -155,7 +155,7 @@ func (dll *doubleLinkedList) Divide() (*doubleLinkedList, *doubleLinkedList) {
 	return firstLinkedList, &secondLinkedList
 }
 
-func (left *doubleLinkedList) Merge(right *doubleLinkedList) *doubleLinkedList {
+func Merge(left *doubleLinkedList, right *doubleLinkedList) *doubleLinkedList {
 
 	//var newList = &doubleLinkedList{firstnode: &dllNode{value: 99999}}
 	var newList = &doubleLinkedList{}
@@ -165,21 +165,25 @@ func (left *doubleLinkedList) Merge(right *doubleLinkedList) *doubleLinkedList {
 		var leftCount = left.count()
 		var rightCount = right.count()
 		if leftCount > 0 && rightCount > 0 {
-			if left.firstnode.value > right.firstnode.value {
-				newList.Add(right.firstnode)
+			if left.firstnode.value <= right.firstnode.value {
+				//newList.Add(left.firstnode)
+				newList.AddValue(left.firstnode.value)
 				//println(right.firstnode.value)
-				right.removeFirstNode()
-			} else {
-				newList.Add(left.firstnode)
-				//println(left.firstnode.value)
 				left.removeFirstNode()
+			} else {
+				//newList.Add(right.firstnode)
+				newList.AddValue(right.firstnode.value)
+				//println(left.firstnode.value)
+				right.removeFirstNode()
 			}
 		} else if leftCount > 0 {
-			newList.Add(left.firstnode)
+			//newList.Add(left.firstnode)
+			newList.AddValue(left.firstnode.value)
 			//println(left.firstnode.value)
 			left.removeFirstNode()
 		} else if rightCount > 0 {
-			newList.Add(right.firstnode)
+			//newList.Add(right.firstnode)
+			newList.AddValue(right.firstnode.value)
 			//println(right.firstnode.value)
 			right.removeFirstNode()
 		}
@@ -203,6 +207,8 @@ func (dll *doubleLinkedList) Add(node *dllNode) {
 	if dll.firstnode != nil {
 		dll.firstnode.addNodeNext(node)
 	} else {
+		node.next = nil
+		node.prev = nil
 		dll.firstnode = node
 	}
 }
@@ -271,8 +277,9 @@ func (node *dllNode) addNext(value int) {
 
 func (node *dllNode) addNodeNext(newNode *dllNode) {
 	if node.next == nil {
-		node.next = newNode
+		newNode.next = nil
 		newNode.prev = node
+		node.next = newNode
 	} else {
 		node.next.addNodeNext(newNode)
 	}
