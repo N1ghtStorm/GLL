@@ -12,23 +12,25 @@ func main() {
 	dLL.AddValue(88)
 
 	dLL.PrintValues()
-	println("")
-	println(dLL.Count)
-	println(dLL.count())
-	dLL.invert()
-	dLL.PrintValues()
-	print("")
-	println("=======================")
-	println(dLL.getValueByIndex(2))
-	println(dLL.getNodeByIndex(0).value)
-	println("=======================")
-	_, dLL2 := dLL.Divide()
-	dLL.PrintValues()
-	println("")
-	dLL2.PrintValues()
-	dLL2.Sort()
-	dLL2.PrintValues()
-	// var dLL2 = newDoubleLinkedList(17)
+	dLL.Sort()
+	//dLL.PrintValues()
+	// println("")
+	// println(dLL.Count)
+	// println(dLL.count())
+	// dLL.invert()
+	// dLL.PrintValues()
+	// print("")
+	// println("=======================")
+	// println(dLL.getValueByIndex(2))
+	// println(dLL.getNodeByIndex(0).value)
+	// println("=======================")
+	// _, dLL2 := dLL.Divide()
+	// dLL.PrintValues()
+	// println("")
+	// dLL2.PrintValues()
+	// dLL2.Sort()
+	// dLL2.PrintValues()
+	// // var dLL2 = newDoubleLinkedList(17)
 	// println(dLL2.getNodeByIndex(3).value)
 
 }
@@ -162,23 +164,40 @@ func (left *doubleLinkedList) Merge(right *doubleLinkedList) *doubleLinkedList {
 	// 	dllLast.next = dll2.firstnode
 	// 	dll2.firstnode.prev = dllLast
 	// }
-	var leftCount = left.count()
-	var rightCount = right.count()
 
-	for leftCount > 0 || rightCount > 0 {
+	var newList = doubleLinkedList{}
+
+	for left.count() > 0 || right.count() > 0 {
+		var leftCount = left.count()
+		var rightCount = right.count()
 		if leftCount > 0 && rightCount > 0 {
 			if left.firstnode.value > right.firstnode.value {
-
+				newList.Add(right.firstnode)
+				right.removeFirstNode()
 			} else {
-
+				newList.Add(left.firstnode)
+				left.removeFirstNode()
 			}
 		} else if leftCount > 0 {
-
+			return left
 		} else if rightCount > 0 {
-
+			return right
 		}
 	}
 	return left
+}
+
+func (dll *doubleLinkedList) removeFirstNode() {
+	dll.firstnode = dll.firstnode.next
+	dll.firstnode.prev = nil
+}
+
+func (dll *doubleLinkedList) Add(node *dllNode) {
+	if dll.firstnode != nil {
+		dll.firstnode.addNodeNext(node)
+	} else {
+		dll.firstnode = node
+	}
 }
 
 // Replases first node from left to right
@@ -187,6 +206,7 @@ func (left *doubleLinkedList) replaceFirstNode(right *doubleLinkedList) {
 	replacedNode.next = right.firstnode
 	left.firstnode = left.firstnode.next
 	left.firstnode.prev = nil
+	right.firstnode.next.prev = replacedNode
 	right.firstnode = replacedNode
 }
 
@@ -239,6 +259,14 @@ func (node *dllNode) addNext(value int) {
 		node.next = &dllNode{value: value, next: nil, prev: node}
 	} else {
 		node.next.addNext(value)
+	}
+}
+
+func (node *dllNode) addNodeNext(newNode *dllNode) {
+	if node.next == nil {
+		node.next = newNode
+	} else {
+		node.next.addNodeNext(newNode)
 	}
 }
 
