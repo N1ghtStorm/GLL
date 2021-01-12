@@ -13,11 +13,17 @@ func main() {
 	dLL.AddValue(8)
 
 	dLL.PrintValues()
-	var sortedDll = dLL.Sort()
 
-	//println(sortedDll.firstnode.value)
-	print("")
-	sortedDll.PrintValues()
+	dLL.createCycleAtBack(5)
+	//dLL.PrintValues()
+	var value, aaa = dLL.getCycleInfo()
+	println(value)
+	println(aaa)
+	// var sortedDll = dLL.Sort()
+
+	// //println(sortedDll.firstnode.value)
+	// print("")
+	// sortedDll.PrintValues()
 	//===============================
 
 	// left, right := dLL.Divide()
@@ -64,7 +70,34 @@ func newDoubleLinkedList(value int) doubleLinkedList {
 func (dll *doubleLinkedList) createCycleAtBack(cycleTargetNodeIndex int) {
 	var last = dll.firstnode.takeLast()
 	var targetNodePtr = dll.getNodeByIndex(cycleTargetNodeIndex)
-	targetNodePtr.next = last
+	last.next = targetNodePtr
+}
+
+func (dll *doubleLinkedList) getCycleInfo() (cycleStartNumber int, isCycled bool) {
+	var turtle = dll.firstnode
+	var rabbit = dll.firstnode
+
+	for rabbit != nil && rabbit.next != nil {
+		turtle = turtle.next
+		rabbit = rabbit.next.next
+		if turtle == rabbit {
+			rabbit = dll.firstnode
+			break
+		}
+	}
+
+	if rabbit == nil || rabbit.next == nil {
+		return 0, false
+	}
+
+	for rabbit != turtle {
+		rabbit = rabbit.next
+		turtle = turtle.next
+	}
+
+	return rabbit.value, true
+
+	//panic("unimplemented")
 }
 
 func (dll *doubleLinkedList) getValueByIndex(index int) int {
