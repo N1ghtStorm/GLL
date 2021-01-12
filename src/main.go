@@ -15,7 +15,6 @@ func main() {
 	dLL.PrintValues()
 
 	dLL.createCycleAtBack(5)
-	//dLL.PrintValues()
 	var value, aaa = dLL.getCycleInfo()
 	println(value)
 	println(aaa)
